@@ -39,7 +39,7 @@ let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
   element.classList.add('added');
- 
+
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
@@ -67,8 +67,8 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000;
-  if (duration < 0){
+  let duration = document.getElementById('duration').value || 1000;
+  if (duration < 0) {
     duration = 1000;
   }
   sliders.forEach(slide => {
@@ -123,3 +123,10 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+//This event listener will allow users to search for images by pressing 'Enter' key.
+document.getElementById('search').addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    searchBtn.click();
+  }
+});
