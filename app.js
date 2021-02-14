@@ -23,7 +23,8 @@ const showImages = (images) => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
-    gallery.appendChild(div)
+    gallery.appendChild(div);
+    toggleSpinner(false);
   })
 }
 
@@ -116,12 +117,13 @@ searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
   const search = document.getElementById('search');
-  getImages(search.value)
+  toggleSpinner(true);
+  getImages(search.value);
   sliders.length = 0;
 })
 
 sliderBtn.addEventListener('click', function () {
-  createSlider()
+  createSlider();
 })
 
 //This event listener will allow users to search for images by pressing 'Enter' key.
@@ -130,3 +132,15 @@ document.getElementById('search').addEventListener('keypress', function (event) 
     searchBtn.click();
   }
 });
+
+
+//Spinner added as a bonus feature.
+const toggleSpinner = (show) => {
+  const spinner = document.getElementById('loading-spinner');
+  if (show === true) {
+    spinner.classList.remove('d-none');
+  }
+  else {
+    spinner.classList.add('d-none');
+  }
+}
