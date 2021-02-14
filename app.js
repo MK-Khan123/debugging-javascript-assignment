@@ -17,6 +17,11 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
+  if (images.length === 0) {
+    document.getElementById('error-message').style.display = 'block';
+    displayErrorMessage("Sorry! We couldn't find any image based on your search input.");
+    return;
+  }
   imagesArea.style.display = 'block';
   sliderImageInfo.style.display = 'block';
   gallery.innerHTML = '';
@@ -35,7 +40,7 @@ const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    .catch(err => console.log(err))
+    .catch(err => displayErrorMessage("Sorry! The link has broken! Please try again later"));
 }
 
 let slideIndex = 0;
@@ -119,6 +124,8 @@ const changeSlide = (index) => {
 
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
+  document.getElementById('error-message').style.display = 'none';
+  document.querySelector('.images').style.display = 'none';
   imagesCaptured.innerText = 0;
   clearInterval(timer);
   const search = document.getElementById('search');
@@ -132,7 +139,7 @@ sliderBtn.addEventListener('click', function () {
   createSlider();
 })
 
-//This event listener will allow users to search for images by pressing 'Enter' key.
+//This event listener will allow users to search for images by pressing 'Enter' key at the search input field.
 document.getElementById('search').addEventListener('keypress', function (event) {
   if (event.key === 'Enter') {
     searchBtn.click();
@@ -146,7 +153,6 @@ document.getElementById('duration').addEventListener('keypress', function (event
   }
 });
 
-
 //Spinner added as a bonus feature.
 const toggleSpinner = (show) => {
   const spinner = document.getElementById('loading-spinner');
@@ -156,4 +162,11 @@ const toggleSpinner = (show) => {
   else {
     spinner.classList.add('d-none');
   }
+}
+
+//Error message added as a bonus feature
+const displayErrorMessage = error => {
+  toggleSpinner(false);
+  const errorTag = document.getElementById('error-message');
+  errorTag.innerText = error;
 }
