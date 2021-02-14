@@ -125,6 +125,7 @@ searchBtn.addEventListener('click', function () {
   toggleSpinner(true);
   getImages(search.value);
   sliders.length = 0;
+  search.value = '';
 })
 
 sliderBtn.addEventListener('click', function () {
@@ -135,6 +136,13 @@ sliderBtn.addEventListener('click', function () {
 document.getElementById('search').addEventListener('keypress', function (event) {
   if (event.key === 'Enter') {
     searchBtn.click();
+  }
+});
+
+//This event listener will allow users to create sliders by pressing 'Enter' key at the 'slider change duration' input field.
+document.getElementById('duration').addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    createSlider();
   }
 });
 
