@@ -4,6 +4,8 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+const sliderImageInfo = document.getElementById('slider-image');
+const imagesCaptured = document.getElementById('images-captured');
 // selected image 
 let sliders = [];
 
@@ -16,6 +18,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 // show images 
 const showImages = (images) => {
   imagesArea.style.display = 'block';
+  sliderImageInfo.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
   galleryHeader.style.display = 'flex';
@@ -47,6 +50,7 @@ const selectItem = (event, img) => {
     sliders.splice(item, 1);
     element.classList.remove('added');
   }
+  imagesCaptured.innerText = sliders.length;
 }
 var timer
 const createSlider = () => {
@@ -115,6 +119,7 @@ const changeSlide = (index) => {
 
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
+  imagesCaptured.innerText = 0;
   clearInterval(timer);
   const search = document.getElementById('search');
   toggleSpinner(true);
