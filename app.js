@@ -19,7 +19,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 const showImages = (images) => {
   if (images.length === 0) {
     document.getElementById('error-message').style.display = 'block';
-    displayErrorMessage("Sorry! We couldn't find any image based on your search input.");
+    displayErrorMessage("Sorry! We couldn't find any image based on your search input."); //An error message is provided if the user search input doesn't match any image in the database.
     return;
   }
   imagesArea.style.display = 'block';
@@ -40,7 +40,7 @@ const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    .catch(err => displayErrorMessage("Sorry! The link has broken! Please try again later"));
+    .catch(err => displayErrorMessage("Sorry! The link has broken! Please try again later")); //An error message is provided if the API link gets broken.
 }
 
 let slideIndex = 0;
@@ -64,7 +64,7 @@ const createSlider = () => {
     alert('Select at least 2 image.')
     return;
   }
-  // crate slider previous next area
+  // create slider previous next area
   sliderContainer.innerHTML = '';
   const prevNext = document.createElement('div');
   prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
@@ -164,7 +164,7 @@ const toggleSpinner = (show) => {
   }
 }
 
-//Error message added as a bonus feature
+//This function helps to display error message when used accordingly.
 const displayErrorMessage = error => {
   toggleSpinner(false);
   const errorTag = document.getElementById('error-message');
